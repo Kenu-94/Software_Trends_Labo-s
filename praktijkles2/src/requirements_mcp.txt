@@ -1,4 +1,0 @@
-# Dependencies voor de MCP-server
-
-# Python MCP SDK v2.x — MCPServer (opvolger van FastMCP)
-mcp>=2.0.0

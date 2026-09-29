@@ -43,7 +43,7 @@ When your changes make something redundant:
 
 - Remove imports/variables/functions that **your** changes rendered unused.
 - Do not remove existing dead code unless asked.
-
++
 The test: every changed line must be directly traceable to the request.
 
 ## 4. Goal-Driven Execution

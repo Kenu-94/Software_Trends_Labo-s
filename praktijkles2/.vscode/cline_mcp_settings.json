@@ -1,12 +1,22 @@
 {
   "mcpServers": {
-    "url-shortener": {
-      "command": "python",
-      "args": ["src/url_shortener_mcp.py"],
-      "cwd": "${workspaceFolder}",
-      "env": {},
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "${workspaceFolder}"],
       "disabled": false,
-      "autoApprove": []
+      "autoApprove": ["list_directory", "directory_tree", "read_file"]
+    },
+    "git": {
+      "command": "uvx",
+      "args": ["mcp-server-git", "--repository", "${workspaceFolder}"],
+      "disabled": false,
+      "autoApprove": ["git_status", "git_diff", "git_log"]
+    },
+    "sqlite": {
+      "command": "uvx",
+      "args": ["mcp-server-sqlite", "--db-path", "${workspaceFolder}/data/grades.db"],
+      "disabled": true,
+      "autoApprove": ["read_query"]
     }
   }
 }
