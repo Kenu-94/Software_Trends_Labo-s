@@ -1,0 +1,17 @@
+student_id,name,email,birth_year
+1001,Alice Smith,alice@example.com,2004
+1002,Bob Jones,bob@example.com,2003
+1003,Charlie Brown,charlie@example.com,2004
+1004,Diana White,diana@example.com,2003
+1005,Ethan Black,,2004
+1006,Fatima Ali,fatima@example.com,
+1007,Greg Peters,greg@example.com,2003
+1008,Hannah Lee,hannah@example.com,2004
+1009,Ibrahim Khan,ibrahim@example.com,2003
+1010,Julie Adams,julie@example.com,2004
+
+1015,Oscar Peeters,oscar@example.com,2005
+1015,Oscar P.,oscar@example.com,2005
+
+1025,Yasmine Ahmed,yasmine@example.com,2004
+1025,Yasmin Ahmed,yasmine@example.com,2004
