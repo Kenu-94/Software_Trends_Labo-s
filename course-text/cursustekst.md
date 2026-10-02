@@ -185,96 +185,7 @@ Wat deed de agent goed? Wat fout? Welke prompts werkten wel en niet?
 
 ## 3. TDD, MCP en de agent loop (Praktijk week 2)
 
-Hier werken we met MCP, een format om tools aan te roepen, en kijken we naar Test driven Design om de hallucinaties van LLM's tegen te werken.
-
-### 3.1 TDD als denkmodel (20 min)
-
-Red → Green → Refactor:
-
-1. **Red**: schrijf eerst een test die faalt; de test legt vast wat "correct" betekent.
-2. **Green**: schrijf de minste code die de test doet slagen.
-3. **Refactor**: verbeter de code zonder dat de tests breken.
-
-Zie TDD niet als testtechniek maar als **denkmodel**: eerst vastleggen wat correct is, dan pas implementeren. Dit is precies wat een agent nodig heeft: een objectieve meetlat.
-
-Voor agents is TDD dubbel waardevol:
-
-- de tests zijn de **definition of done** waar de agent naartoe werkt
-- de agent draait zelf de loop: test → fail → fix → test, zonder dat jij tussendoor moet kijken
-- elke groene test is bewijs; "het compileert" is geen bewijs
-
-### 3.2 MCP (20 min)
-
-MCP (Model Context Protocol) is het protocol dat glue code tussen AI-modellen en tools vervangt. Het is geen vervanging van een API, wel van de integratielaag eromheen.
-
-- **USB-C voor AI**: één standaard aansluiting tussen model en tool.
-- **Security**: API-credentials worden centraal en veilig beheerd op de MCP-server; de LLM heeft er geen directe toegang toe.
-- **Zero glue code**: dankzij het protocol (de P) werkt elk model met elke denkbare tool.
-- **Model (M)**: het model discovers tools en beslist zelf welke het gebruikt.
-- **Context (C)**: een API is op zich stateless, maar een LLM met MCP heeft wel state. Vergelijking: de API is het menu, MCP is de ober met geheugen.
-
-Architectuur: **Host → Client → Server**. Cline is de MCP-host in VS Code. Drie primitives: **Tools**, **Resources**, **Prompts**. Tool discovery verloopt via `tools/list`, uitvoering via `tools/call`.
-
-**Server opzetten met Tailscale — concreet**
-
-Tailscale maakt een privé-netwerk (WireGuard) over je bestaande machines: laptop, thuisserver of cloudbox krijgen elk een vast IP binnen het "Tailnet", zonder poorten open te zetten. Ideaal om een eigen MCP-server te draaien die alleen jij bereikt.
-
-1. **Account**: maak een gratis account op [tailscale.com](https://tailscale.com).
-2. **Installeren** op de servermachine én je laptop:
-   ```bash
-   curl -fsSL https://tailscale.com/install.sh | sh
-   sudo tailscale up
-   ```
-3. **Inloggen**: de `tailscale up`-output geeft een browserlink; na login verschijnen beide machines in de admin console met een hostname (bv. `server.tail1234.ts.net`).
-4. **Test**: `ping server` vanaf je laptop — binnen het Tailnet werkt dit direct.
-5. **Server draaien**: start je MCP-server op de servermachine (bv. `mcp.run(host="0.0.0.0", port=8000)`). Bereikbaar via `http://server:8000`, alleen voor toestellen in je Tailnet.
-6. **Koppelen aan Cline**: voeg in `cline_mcp_settings.json` de server toe met `"url": "http://server:8000/mcp"`. Cline ontdekt de tools via `tools/list` en roept ze aan via `tools/call`.
-
-Credentials zet je als environment variabele op de server; de LLM ziet alleen de tool-interface, nooit het secret.
-
-De volledige oefening (URL Shortener als MCP-server) komt in §3.5. Eventueel te combineren met Aperture voor extra controle op de toegang.
-
-### 3.3 Skills vs MCP
-
-Naast MCP bestaat er een tweede manier om een agent uit te breiden: **Agent Skills**, gestandaardiseerd op [agenticskills.io](https://agenticskills.io). Een skill is een map met een `SKILL.md` (instructies, conventies en scripts) die de agent laadt wanneer relevant. Waar MCP nieuwe *tools* toevoegt, voegt een skill nieuwe *kennis en werkwijzen* toe.
-
-| | MCP | Skills |
-|---|---|---|
-| Wat | protocol om externe tools aan te roepen | markdown-instructies + optionele scripts |
-| Doel | agent kan **nieuwe acties** uitvoeren | agent weet **hoe** hij een taak moet aanpakken |
-| Runtime | aparte serverproces nodig | gewoon bestanden in de repo |
-| Beveiliging | credentials op de server | niets draait extern; code leesbaar en reviewable |
-| Voorbeeld | URL Shortener via `tools/call` | "zo schrijven wij tests", "zo gebruiken wij dit framework" |
-
-Vuistregel: kan de agent het al met bestaande tools, maar weet hij niet **hoe**? → skill. Heeft de agent toegang nodig tot iets extern (API, database, dienst)? → MCP. Vaak vullen ze elkaar aan: een skill beschrijft de werkwijze, MCP levert de tools.
-
-Lees meer en browse de collectie skills op [agenticskills.io](https://agenticskills.io).
-
-### 3.4 Opdracht: URL Shortener API
-
-Features: shorten URL, retrieve URL, expiration.
-
-- **Fase 1**: alleen tests. Laat de agent tests schrijven, review ze zelf.
-- **Fase 2**: laat de agent implementeren.
-- **Fase 3**: laat de agent itereren: test → fix → test → fix → ... tot alles groen is.
-
-### 3.5 De URL Shortener als echte MCP-server
-
-```python
-from mcp.server.mcpserver import MCPServer
-mcp = MCPServer("URL Shortener")
-
-@mcp.tool()
-def shorten_url(url: str, expiration_hours: int = 24) -> str: ...
-```
-
-Koppel aan Cline via `cline_mcp_settings.json` en vraag:
-
-> "Gebruik de MCP-server om deze URL te verkorten."
-
-**Bonus 1**: vergelijk resultaten zonder tests vs met tests. De verschillen zijn doorgaans overtuigend.
-
-**Bonus 2**: voeg een publieke MCP-server toe (bv. weer-API). Cline kan tools uit meerdere servers combineren.
+nog toe te voegen
 
 ---
 
@@ -302,7 +213,7 @@ Koppel aan Cline via `cline_mcp_settings.json` en vraag:
 - fouten blijven verborgen tot aan de output
 - validatie moet volledig **extern**: via tests, review gates en de harness
 
-Vuistregel: hoe minder het model zichtbaar redeneert, hoe sterker de objective meetlat eromheen moet zijn.
+Vuistregel: hoe minder het model zichtbaar redeneert, hoe sterker de objectieve meetlat eromheen moet zijn.
 
 ### 4.2 Kosten van agentic coding
 

@@ -1,0 +1,29 @@
+# Agent Rules: taakbeheer (taskmanager)
+
+## Context lezen
+- Lees eerst `context/PRD.md`, `context/architecture.md` en `context/coding-standards.md` voordat je iets doet
+- Lees daarna `specs/spec-task-manager.md` vóórdat je code schrijft
+
+## Werkwijze
+- Spec-first: spec lezen, tests schrijven, implementeren, validatie draaien
+- Schrijf tests vóór de implementatie
+- Na elke wijziging: draai `harness/run_tests.sh` en los fouten op tot alles groen is
+- Gebruik alleen de Python-standaardbibliotheek, voeg geen dependencies toe
+- Overschrijf nooit bestaande code zonder overleg
+- Schrijf in het Nederlands, code-identifiers in het Engels
+
+## Gedragsrichtlijnen
+- Denk voor je codeert, benoem aannames en vraag bij onduidelijkheid
+- Eenvoud eerst, geen features buiten de spec
+- Chirurgische wijzigingen, raak alleen aan wat nodig is
+
+## Constraints
+- Budgetlimiet: vraag bij twijfel
+- Max 3 retries per failing test, daarna escaleren naar de developer
+- Geen wijzigingen aan `.clinerules` zonder goedkeuring
+
+## Definitie van Done
+- [ ] Alle tests slagen
+- [ ] `harness/run_tests.sh` geeft exit code 0
+- [ ] Geen ongebruikte imports of variabelen
+- [ ] Code voldoet aan `specs/spec-task-manager.md`
