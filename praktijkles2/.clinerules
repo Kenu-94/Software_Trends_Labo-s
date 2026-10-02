@@ -1,0 +1,45 @@
+# Agent Rules — praktijkles2: Student Grade Analyzer
+
+## Taal & conventies
+- Gebruik Python 3.12+
+- Type hints verplicht
+- Docstrings: Google-style
+- Tests: pytest
+- Gebruik standaard libraries (csv, statistics, argparse); geen externe dependencies
+
+## Werkwijze (spec first!)
+- Volgorde is heilig: **spec → tests → code**
+- Maak nog geen code als de spec niet goedgekeurd is
+- Schrijf geen implementatie zolang de tests niet bestaan
+- Implementeer exact wat de tests vragen; geen extra features
+- Na elke wijziging: voer `harness/run_tests.sh` uit
+- Bij failing tests: los op, herhaal tot alles groen is
+- Raadpleeg `praktijkles1/karpathy.md` voor de gedragsrichtlijnen
+
+## Denk voor je codeert
+- Maak GEEN aannames bij onduidelijke requirements
+- Als een requirement meerdere interpretaties heeft of onvoldoende detail bevat: STOP en stel verduidelijkende vragen
+- Benoem je aannames expliciet als je er toch één moet maken, en vraag om bevestiging
+- "Toon statistieken" is geen requirement: vraag welke statistieken bedoeld worden
+
+## Eenvoud eerst
+- Geen features buiten wat gevraagd is
+- Geen abstracties voor eenmalige code
+- Geen onnodige flexibiliteit of configureerbaarheid
+
+## Chirurgische wijzigingen
+- Raak alleen aan wat je moet aanraken
+- Refactor niets dat niet stuk is
+- Match bestaande stijl
+
+## Constraints
+- Max 3 retries per failing test, daarna escaleren naar de developer
+- Geen wijzigingen aan dit bestand zonder goedkeuring
+- Alle code moet door de harness (lint + type check + tests)
+
+## Definitie van Done
+- [ ] Alle tests slagen
+- [ ] harness/run_tests.sh geeft exit code 0
+- [ ] Type checker geeft geen fouten
+- [ ] Geen ongebruikte imports of variabelen
+- [ ] Code voldoet aan de spec in specs/
