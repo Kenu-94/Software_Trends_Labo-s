@@ -4,7 +4,7 @@
 
 In deze les werk je met een **multi-agent setup**: in plaats van één Cline-sessie die alles doet, verdeel je het werk over **vier agent-rollen**, elk in een eigen sessie met een eigen prompt. De handoff tussen de rollen verloopt via documentatie: specs, ADR's, een eco-rapport en een reviewverslag.
 
-De opdracht is de **Green Code Audit**: de Student Grade Analyzer uit praktijkles2 is geleverd door een "ander team". Jij bent het nieuwe team dat hem auditeert, verbetert en rapporteert. Daarbij meet je ook het **ecologische kost** van je eigen AI-workflow.
+De opdracht is de **Green Code Audit**: de Student Grade Analyzer uit praktijkles2 is geleverd door een "ander team". Jij bent het nieuwe team dat hem auditeert, verbetert en rapporteert. Daarbij meet je ook de **ecologische kost** van je eigen AI-workflow.
 
 ## Leerdoelen
 

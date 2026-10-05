@@ -118,7 +118,7 @@ Prompt
 | DeepSeek | $ | snel | goed |
 | Lokaal (LLaMA, Qwen) | €€€ (hardware) | variabel | matig |
 
-**[MEDIA] Voeg kostengrafiek per taak toe** — bv. cost per feature, per bugfix
+**kostengrafiek per taak** — bv. cost per feature, per bugfix
 
 
 ---
@@ -309,8 +309,6 @@ Agent voorstel
     → Ja: agent implementeert
     → Nee: feedback, agent past aan
 ```
-
-**[DEMO] Laat approval gate zien in Cline/CodeGate — accepteren/aanpassen**
 
 ---
 
