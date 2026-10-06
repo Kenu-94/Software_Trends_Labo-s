@@ -1,54 +1,45 @@
-# Agent Rules — cursus_ai_programming
+# Agent Rules — praktijkles2: Student Grade Analyzer
 
 ## Taal & conventies
 - Gebruik Python 3.12+
 - Type hints verplicht
-- Docstrings: Google-styles
+- Docstrings: Google-style
 - Tests: pytest
+- Gebruik standaard libraries (csv, statistics, argparse); geen externe dependencies
 
-## Werkwijze
-- Lees altijd eerst de relevante spec uit `specs/` voor je implementeert
-- de map `course-text` bevat een zeer beknopte versie van het cursusmateriaal voor dit vak
-- Lees `docs/ADR/` voor architectuur-beslissingen
-- Schrijf tests **vóór** implementatie (Spec First!)
+## Werkwijze (spec first!)
+- Volgorde is heilig: **spec → tests → code**
+- Maak nog geen code als de spec niet goedgekeurd is
+- Schrijf geen implementatie zolang de tests niet bestaan
+- Implementeer exact wat de tests vragen; geen extra features
 - Na elke wijziging: voer `harness/run_tests.sh` uit
 - Bij failing tests: los op, herhaal tot alles groen is
-- Voeg geen onnodige dependencies toe
-- Gebruik minimaal externe libraries
-- Overschrijf nooit bestaande code zonder overleg
-- schrijf in het Nederlands tenzij expliciet anders gevraagd
-- Raadpleeg `praktijkles1/karpathy.md` voor de volledige gedragsrichtlijnen
+- Raadpleeg `praktijkles1/karpathy.md` voor de gedragsrichtlijnen
 
-## Gedragsrichtlijnen (karpathy.md)
-- **Denk voor je codeert:** benoem aannames, leg meerdere interpretaties voor, durf eenvoudigere aanpakken voor te stellen, vraag bij onduidelijkheid
-- **Eenvoud eerst:** geen features buiten de vraag, geen abstracties voor eenmalige code, geen onnodige flexibiliteit
-- **Chirurgische wijzigingen:** raak alleen aan wat nodig is, match bestaande stijl, refactor niets dat niet stuk is
-- **Doelgericht werken:** formuleer toetsbare succescriteria, werk in plan/verifieer/plan-lussen
+## Denk voor je codeert
+- Maak GEEN aannames bij onduidelijke requirements
+- Als een requirement meerdere interpretaties heeft of onvoldoende detail bevat: STOP en stel verduidelijkende vragen
+- Benoem je aannames expliciet als je er toch één moet maken, en vraag om bevestiging
+- "Toon statistieken" is geen requirement: vraag welke statistieken bedoeld worden
 
-## context
-- Lees de contextfiles in `/voorbereiding`
+## Eenvoud eerst
+- Geen features buiten wat gevraagd is
+- Geen abstracties voor eenmalige code
+- Geen onnodige flexibiliteit of configureerbaarheid
 
-## Skills
-- skills/mermaid-diagram: diagrammen maken als mermaid code fences (gebruik bij elke visuele uitleg)
-- skills/slides-maken: Marp-slides maken of aanpassen op basis van een cursustekst
-- Lees de relevante skill uit `skills/` voor je met die taak begint
+## Chirurgische wijzigingen
+- Raak alleen aan wat je moet aanraken
+- Refactor niets dat niet stuk is
+- Match bestaande stijl
 
 ## Constraints
-- Budgetlimiet: vraag bij twijfel
-- Max 3 retries per failing test, daarna escaleren naar developer
-- Geen wijzigingen aan `.clinerules` zonder goedkeuring
-- Alle suggesties tot verbetering bijhouden in `improvements.md`
-- Alle code moet door de harness passen (tests + lint + type check)
-
-## Niet doen
-- vermijd em-dash
-- vermijd een hoofdletter na een dubbelpunt, gebruik Nederlandstalig hoofdlettergebruik
-- vermijd lange tekst
-- nooit code runnen buiten de container
+- Max 3 retries per failing test, daarna escaleren naar de developer
+- Geen wijzigingen aan dit bestand zonder goedkeuring
+- Alle code moet door de harness (lint + type check + tests)
 
 ## Definitie van Done
-- [ ] Alle tests in `tests/` slagen
-- [ ] `harness/run_tests.sh` geeft exit code 0
+- [ ] Alle tests slagen
+- [ ] harness/run_tests.sh geeft exit code 0
 - [ ] Type checker geeft geen fouten
 - [ ] Geen ongebruikte imports of variabelen
-- [ ] Code voldoet aan de specs in `specs/`
+- [ ] Code voldoet aan de spec in specs/

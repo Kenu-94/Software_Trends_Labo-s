@@ -1,0 +1,38 @@
+student_id,name,class,exam,score,date
+1001,Alice Smith,A,final,15,2026-06-20
+1002,Bob Jones,A,final,11,2026-06-20
+1003,Charlie Brown,A,final,16,2026-06-20
+1004,Diana White,A,final,12,2026-06-20
+1005,Ethan Black,A,final,10,2026-06-20
+1006,Fatima Ali,A,final,18,2026-06-20
+1007,Greg Peters,A,final,8,2026-06-20
+1008,Hannah Lee,A,final,20,2026-06-20
+1009,Ibrahim Khan,A,final,11,2026-06-20
+
+1010,Julie Adams,A,final,14/20,2026-06-20
+
+1011,Kevin Miller,B,final,9,2026-06-20
+1012,Laura Clark,B,final,19,2026-06-20
+1013,Mohammed Hassan,B,final,14,2026-06-20
+1014,Nina Janssens,B,final,16,2026-06-20
+
+1015,Oscar Peeters,B,final,50%,2026-06-20
+
+1016,Paul Dupont,B,final,17,2026-06-20
+1017,Quincy Moore,B,final,8,2026-06-20
+1018,Rania Elbaz,B,final,12,2026-06-20
+1019,Sam Jacobs,B,final,18,2026-06-20
+1020,Tina Vermeulen,B,final,14,2026-06-20
+
+1021,Umar Shah,C,final,9,2026-06-20
+1022,Veerle Maes,C,final,18,2026-06-20
+1023,Wim De Smet,C,final,15,2026-06-20
+1024,Xander Willems,C,final,11,2026-06-20
+
+1025,Yasmin Ahmed,C,final,16,2026-06-20
+
+1026,Zara Novak,C,final,10,2026-06-20
+1027,Arno Claes,C,final,7,2026-06-20
+1028,Brecht Mertens,C,final,18,2026-06-20
+1029,Celine Vos,C,final,17,2026-06-20
+1030,Dries Hermans,C,final,14,2026-06-20

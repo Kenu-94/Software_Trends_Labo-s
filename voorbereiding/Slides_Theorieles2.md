@@ -6,7 +6,7 @@ paginate: true
 
 <!-- _class: title-slide -->
 
-# Theorieles 2 — Risico's, Controle en Toekomst
+# Theorieles 2 — Risico's, controle en toekomst
 ## Software Trends — Agentic Coding
 
 ---
@@ -15,12 +15,13 @@ paginate: true
 
 - Risico's herkennen
 - AI-output kritisch beoordelen
+- Milieuimpact begrijpen
 - Economische impact begrijpen
 - Relevante developer skills identificeren
 
 ---
 
-## 1. Waar gaat agentic coding fout? (30 min)
+## 1. Waar gaat agentic coding fout?
 
 ### Gekende problemen — overzicht
 
@@ -32,8 +33,6 @@ paginate: true
 | Dependency chaos | Onnodige libraries toegevoegd |
 | Infinite loops | Blijft zelfde fout oplossen |
 
-**[DEMO] Toon een hallucinatie — agent gebruikt niet-bestaande API**
-
 ---
 
 ### Hallucinaties
@@ -41,8 +40,6 @@ paginate: true
 - **Oorzaak:** LLM "vult in" op basis van patronen
 - **Gevolg:** Verzonnen functies, endpoints, packages
 - **Oplossing:** Altijd valideren tegen echte documentatie
-
-**[MEDIA] Screenshot van hallucinatie — bv. agent roept fictieve API aan**
 
 ---
 
@@ -62,7 +59,7 @@ paginate: true
 - Na 5-10 iteraties: zijpad ingeslagen
 - Oorzaak: agent verlaten van oorspronkelijke instructie
 
-**Oplossing:** Heldere DoD + human review gates
+**Oplossing:** Heldere DoD + human review gates + beperking aantal pogingen
 
 ---
 
@@ -76,7 +73,7 @@ npm install lodash   (onnodig)
 npm install axios    (fetch is ingebouwd)
 ```
 
-**[MEDIA] Toon screenshot — package.json met onnodige dependencies**
+**Oplossing**: installs expliciet beheren met package manager en valideren
 
 ---
 
@@ -94,8 +91,7 @@ Fix bug
 
 ---
 
-## 2. Kosten van agentic coding (20 min)
-
+## 2. Kosten van agentic coding
 ### Tokenverbruik — onderschat probleem
 
 ```
@@ -122,7 +118,32 @@ Prompt
 | DeepSeek | $ | snel | goed |
 | Lokaal (LLaMA, Qwen) | €€€ (hardware) | variabel | matig |
 
-**[MEDIA] Voeg kostengrafiek per taak toe** — bv. cost per feature, per bugfix
+**kostengrafiek per taak** — bv. cost per feature, per bugfix
+
+
+---
+
+
+### Kostenverschil tussen modellen
+
+| Model | SWE-bench Verified | Input/output per 1M | Gemengde prijs |
+|---|---|---|---|
+| Claude Opus 5 | 96,0% | $5 / $25 | $10,00 |
+| Gemini 3.1 Pro | 80,6% | $2 / $12 | $4,50 |
+| DeepSeek V4 Flash 0731 | 79,0% | $0,04 / $0,64 | $0,19 |
+
+> Zelfde taak, 25x prijsverschil, 17% kwaliteitsverschil
+
+---
+
+### Wat is SWE-bench Verified?
+
+- Benchmark: echte GitHub-issues oplossen
+- ~500 handmatig geverifieerde taken
+- Score = % correct opgeloste issues
+- **Deeltaken:** begrijpen, code aanpassen, tests laten slagen
+
+**Let op:** benchmarkscore ≠ jouw project. Domein en codebase verschillen.
 
 ---
 
@@ -133,11 +154,120 @@ Prompt
 - Beperk context window (minder tokens)
 - Caching van veelgebruikte context
 
-**[DEMO] Laat kostenverschil zien:** zelfde taak met Claude vs DeepSeek
+---
+
+### Caching: hoe werkt dat?
+
+- Providers cachen **identieke prompt-prefixes**
+- Cache hit: goedkoper (bv. ~10% van inputprijs) én sneller
+- Werkt als het begin van je prompt **stabiel** blijft
+- Verandert één teken vooraan → hele cache weg
+
+> Dit is (onder meer) waarom we werken met een vaste `.clinerules` file!
 
 ---
 
-## 3. Human in the Loop (30 min)
+### Caching in Cline
+
+| Maatregel | Effect |
+|---|---|
+| **Stabiele system prompt** | blijft gecachet tussen calls |
+| **Geen wijzigingen bovenin context** | prefix blijft gelijk |
+| **Checkpoints / samenvattingen** | voorkomt opnieuw sturen van volledige context |
+
+**Cline zelf cachet niet, maar stuurt context zo in dat provider-caching kan meewerken.**
+
+---
+
+## 3. Milieukost van agentic coding
+
+### Vier bronnen van impact
+
+| Niveau | Bron | Impact |
+|---|---|---|
+| **1. AI-calls** | Energie per token × CO₂-intensiteit elektriciteit | meest zichtbaar |
+| **2. Rekentijd tools** | tests, builds, containers, zoekacties | soms groter dan LLM |
+| **3. Training + infra** | modeltraining, datacenters bouwen en koelen | groot, gedeeld door alle gebruikers |
+| **4. Vermeden werk** | minder mensuren, rebuilds, meetings | vaak positief |
+
+---
+
+### Training en infrastructuur
+
+| Post | Cijfer (studie) |
+|---|---|
+| Training GPT-3 | ~1.300 MWh, ~500 ton CO₂ (Patterson e.a., 2021) |
+| Training GPT-4 | geschat ~50 GWh (publicatiecijfers, onbevestigd) |
+| Datacenter-overhead | cooling, stroomverlies: 1,2-1,5x boven GPU-verbruik |
+| Hardware | GPU-productie en e-waste tellen vaak niet mee |
+
+> Training kost veel, maar wordt over **miljoenen queries** afgeschreven. Inference domineert dagelijkse kosten.
+
+---
+
+### Waarom agents meer verbruiken
+
+Eén feature = tientallen tot honderden modelinteracties:
+
+```
+plannen → tool-calls → refactorings
+→ testanalyses → foutoplossingen → iteraties
+```
+
+| Activiteit | Milieu-impact |
+|---|---|
+| Enkele code-completion | laag |
+| Volledige codebase-analyse | middel |
+| Agent die 50 testen uitvoert | hoger |
+| Agentische bugfix, meerdere iteraties | hoog |
+
+---
+
+### Vermeden menselijke activiteit
+
+Agent kan vervangen: developerwerk, rebuilds, verspilde cloudresources
+
+→ **"CO₂ per prompt" is daarom een slechte KPI**
+
+Beter: **CO₂ per afgewerkte feature**
+
+---
+
+### CO₂ per feature (cijfers op basis van studies)
+
+**Bronnen:** Epoch AI (0,3 Wh per LLM-query), Patterson e.a. (2021), grid ≈ 400 g CO₂/kWh
+
+| Werkwijze | Energie per feature | CO₂ |
+|---|---|---|
+| Developer zonder AI | 6 uur laptop + builds ≈ 0,5 kWh | ~0,2 kg |
+| Agent, goedkoop model | ~500 calls + tests ≈ 0,5 kWh | ~0,2 kg |
+| Agent, frontier model | ~2.000 calls, lange outputs ≈ 1,5 kWh | ~0,6 kg |
+
+> Dezelfde grootte-orde. Besparen op tokens helpt, maar de KPI blijft **CO₂ per afgewerkte feature**
+
+**Ter context:** typische LLM-query ≈ 0,3 Wh, vergelijkbaar met een Google-zoekopdracht; oudere schattingen (3 Wh) waren 10x te hoog.
+
+---
+
+### Jevons-effect
+
+> Efficiëntere AI → goedkoper per taak → **veel meer taken** → totaalverbruik stijgt
+
+- Elke besparing verlaagt de drempel om agents in te zetten
+- Netto impact: meer output, niet minder verbruik
+- Efficiëntie ≠ duurzaamheid
+
+---
+
+### Duurzaam modelkiezen
+
+- Lokale modellen: minder datacenterimpact, meer lokale energie, soms meer iteraties
+- Frontier-modellen: omgekeerd profiel
+- **Duurzaamste = laagste CO₂ per geslaagde taak**, niet het kleinste model
+
+---
+
+## 4. Human in the Loop
 
 ### Nieuwe rol van de developer
 
@@ -168,8 +298,6 @@ Elke agent-output = **voorstel**, geen eindproduct
 | ✅ Testing | Zijn edge cases gedekt? |
 | ✅ Architectuur | Houdt het systeem gezond? |
 
-**[MEDIA] Werkblad — 'Agent Review Checklist' als handout**
-
 ---
 
 ### Approval Gates
@@ -182,11 +310,9 @@ Agent voorstel
     → Nee: feedback, agent past aan
 ```
 
-**[DEMO] Laat approval gate zien in Cline/CodeGate — accepteren/aanpassen**
-
 ---
 
-## 4. Welke skills verliezen waarde? (20 min)
+## 5. Welke skills verliezen waarde?
 
 ### Dalende waarde
 
@@ -218,9 +344,6 @@ Agent voorstel
 2025: "Hoe ontwerp ik deze feature?"
 2030: "Hoe orchestreer ik 10 agents?"
 ```
-
-**[MEDIA] Tijdlijn infographic — evolutie developer skills 2020-2030**
-
 ---
 
 ### Conclusie
@@ -236,13 +359,10 @@ Agent voorstel
 
 - **Risico's:** hallucinaties, drift, loops, kosten
 - **Kosten:** tokens tellen, modelkeuze, caching
+- **Impact op milieu:** energieverbruik, rekentijd van tools, vermeden CO₂-kost, Jevons-effect
 - **Human in the loop:** altijd reviewen
 - **Toekomst:** architect, orchestration, domeinkennis
 
 ---
 
-## Discussie / Vragen
-
-- Welke risico's herken je?
-- Hoe ga jij agentic coding inzetten?
-- Wat zie jij als grootste valkuil?
+## Vragen

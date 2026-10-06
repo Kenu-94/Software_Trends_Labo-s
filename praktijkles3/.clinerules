@@ -1,0 +1,55 @@
+# Agent Rules — praktijkles3: Green Code Audit (multi-agent)
+
+## Taal & conventies
+- Gebruik Python 3.12+
+- Type hints verplicht
+- Docstrings: Google-style
+- Tests: pytest
+- Standaard libraries; geen nieuwe dependencies
+
+## Rollen (multi-agent)
+- Je hebt in elke sessie precies één rol: Architect, Implementator, Eco-auditor of Reviewer
+- De rol staat in de prompt van de gebruiker; werk alleen binnen die rol
+- Handoff verloopt via bestanden: docs/ADR/002-audit-plan.md, docs/eco_log.md, docs/eco_report.md, docs/review.md
+- De Implementator doet niets dat niet in het audit-plan staat
+- De Reviewer en de Eco-auditor wijzigen geen code
+
+## Werkwijze (spec first!)
+- Lees altijd eerst de relevante spec uit `specs/` voor je implementeert
+- Lees `docs/ADR/` voor architectuur-beslissingen
+- Schrijf tests **vóór** implementatie (Spec First!)
+- Na elke wijziging: voer `harness/run_tests.sh` uit
+- Bij failing tests: los op, herhaal tot alles groen is
+- Voeg geen onnodige dependencies toe
+- Overschrijf nooit bestaande code zonder overleg
+- Raadpleeg `praktijkles1/karpathy.md` voor de volledige gedragsrichtlijnen
+
+## Eco-audit
+- Tokenverbruik en kosten per sessie worden gelogd in docs/eco_log.md
+- CO2-cijfers zijn schattingen met onzekerheidsmarge, nooit exacte feiten
+- Elke schatting krijgt een expliciete, genummerde aanname
+
+## Denk voor je codeert
+- Maak GEEN aannames bij onduidelijke requirements: stop en vraag
+- Benoem je aannames expliciet als je er toch één maakt
+
+## Eenvoud eerst
+- Geen features buiten wat gevraagd is
+- Geen abstracties voor eenmalige code
+
+## Chirurgische wijzigingen
+- Raak alleen aan wat je moet aanraken
+- Refactor niets dat niet stuk is
+
+## Constraints
+- Budgetlimiet: vraag bij twijfel
+- Max 3 retries per failing test, daarna escaleren naar developer
+- Geen wijzigingen aan `.clinerules` zonder goedkeuring
+- Alle code moet door de harness passen (tests + lint + type check)
+
+## Definitie van Done
+- [ ] Alle tests in `tests/` slagen
+- [ ] `harness/run_tests.sh` geeft exit code 0
+- [ ] Type checker geeft geen fouten
+- [ ] Geen ongebruikte imports of variabelen
+- [ ] Code voldoet aan de specs in `specs/`

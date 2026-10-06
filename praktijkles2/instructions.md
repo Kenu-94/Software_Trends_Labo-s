@@ -26,7 +26,7 @@ Na deze les kan de student:
 
 Bouw een command line tool die een CSV met studentresultaten analyseert.
 
-Voorbeeld `data/results.csv`:
+Voorbeeld `data/makkelijk/results_v3.csv`:
 
 ```csv
 name,score
@@ -55,7 +55,7 @@ Niet geslaagd:
 - Bob
 ```
 
-Regel: **geslaagd = score >= 10**.
+Regel: **geslaagd = score >= 10**. Denk na over welke andere regels je nodig zult hebben terwijl je dit project maakt.
 
 ---
 

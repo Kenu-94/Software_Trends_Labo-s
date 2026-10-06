@@ -1,0 +1,33 @@
+student_id,name,class,exam,score,date
+1001,Alice Smith,A,midterm,13,2026-01-15
+1002,Bob Jones,A,midterm,7,2026-01-15
+1003,Charlie Brown,A,midterm,18,2026-01-15
+1004,Diana White,A,midterm,absent,2026-01-15
+1005,Ethan Black,A,midterm,9,2026-01-15
+1006,Fatima Ali,A,midterm,,2026-01-15
+1007,Greg Peters,A,midterm,4,2026-01-15
+1008,Hannah Lee,A,midterm,19,2026-01-15
+1009,Ibrahim Khan,A,midterm,12,2026-01-15
+1010,Julie Adams,A,midterm,14,2026-01-15
+
+1011,Kevin Miller,B,midterm,-2,2026-01-15
+1012,Laura Clark,B,midterm,27,2026-01-15
+1013,Mohammed Hassan,B,midterm,13,2026-01-15
+1014,Nina Janssens,B,midterm,n/a,2026-01-15
+1015,Oscar Peeters,B,midterm,8,2026-01-15
+1016,Paul Dupont,B,midterm,15,2026-01-15
+1017,Quincy Moore,B,midterm,6,2026-01-15
+1018,Rania Elbaz,B,midterm,10,2026-01-15
+1019,Sam Jacobs,B,midterm,16,2026-01-15
+1020,Tina Vermeulen,B,midterm,absent,2026-01-15
+
+1021,Umar Shah,C,midterm,5,2026-01-15
+1022,Veerle Maes,C,midterm,17,2026-01-15
+1023,Wim De Smet,C,midterm,14,2026-01-15
+1024,Xander Willems,C,midterm,,2026-01-15
+1025,Yasmine Ahmed,C,midterm,13,2026-01-15
+1026,Zara Novak,C,midterm,9,2026-01-15
+1027,Arno Claes,C,midterm,2,2026-01-15
+1028,Brecht Mertens,C,midterm,19,2026-01-15
+1029,Celine Vos,C,midterm,15,2026-01-15
+1030,Dries Hermans,C,midterm,13,2026-01-15
